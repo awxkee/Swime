@@ -751,15 +751,6 @@ public struct MimeType {
             }
         ),
         MimeType(
-            mime: "application/heic",
-            ext: "heic",
-            type: .applicationHeic,
-            bytesCount: 12,
-            matches: { bytes, _ in
-                return bytes[8...11] == [0x68, 0x65, 0x69, 0x63] || bytes[8...11] == [0x68, 0x65, 0x69, 0x78]
-            }
-        ),
-        MimeType(
             mime: "image/heif",
             ext: "heif",
             type: .heif,
@@ -780,5 +771,14 @@ public struct MimeType {
                 || mt == [UInt8]("hevc".utf8) || mt == [UInt8]("hevx".utf8)
             }
         )
+        MimeType(
+            mime: "application/heic",
+            ext: "heic",
+            type: .applicationHeic,
+            bytesCount: 12,
+            matches: { bytes, _ in
+                return bytes[8...11] == [0x68, 0x65, 0x69, 0x63] || bytes[8...11] == [0x68, 0x65, 0x69, 0x78]
+            }
+        ),
     ]
 }
