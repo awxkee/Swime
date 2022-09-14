@@ -770,7 +770,7 @@ public struct MimeType {
                 return mt == [UInt8]("heic".utf8) || mt == [UInt8]("heix".utf8)
                 || mt == [UInt8]("hevc".utf8) || mt == [UInt8]("hevx".utf8)
             }
-        )
+        ),
         MimeType(
             mime: "application/heic",
             ext: "heic",
