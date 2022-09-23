@@ -30,6 +30,7 @@ public enum FileType {
     case jpg
     case djvu
     case fb2
+    case xml
     case mobi
     case jxr
     case lz
@@ -433,6 +434,15 @@ public struct MimeType {
             bytesCount: 12,
             matches: { bytes, _ in
                 bytes[0...11].map(String.init).joined() == "<FictionBook"
+            }
+        ),
+        MimeType(
+            mime: "application/xml",
+            ext: "xml",
+            type: .xml,
+            bytesCount: 12,
+            matches: { bytes, _ in
+                bytes[0...3].map(String.init).joined() == "<xml"
             }
         ),
         MimeType(
