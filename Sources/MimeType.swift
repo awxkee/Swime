@@ -28,6 +28,8 @@ public enum FileType {
     case gz
     case ico
     case jpg
+    case djvu
+    case fb2
     case jxr
     case lz
     case m4a
@@ -412,6 +414,24 @@ public struct MimeType {
                 }
 
                 return findDocType("webm")
+            }
+        ),
+        MimeType(
+            mime: "image/vnd.djvu",
+            ext: "djvu",
+            type: .djvu,
+            bytesCount: 15,
+            matches: { bytes, _ in
+                return bytes[0...4] == [0x41, 0x54, 0x26, 0x54, 0x46] && bytes[6] == 0x52 && bytes[12] == 0x44 && bytes[14] == 0x56
+            }
+        ),
+        MimeType(
+            mime: "application/fb",
+            ext: "fb2",
+            type: .fb2,
+            bytesCount: 12,
+            matches: { bytes, _ in
+                bytes[0...11].map(String.init).joined() == "<FictionBook"
             }
         ),
         MimeType(
