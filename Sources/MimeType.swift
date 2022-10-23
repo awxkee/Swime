@@ -74,6 +74,7 @@ public enum FileType {
     case applicationHeic
     case heic
     case heif
+    case zst
 }
 
 public struct MimeType {
@@ -107,6 +108,20 @@ public struct MimeType {
 
     /// List of all supported `MimeType`s
     public static let all: [MimeType] = [
+        MimeType(mime: "application/zstd",
+                 ext: "zst",
+                 type: .zst,
+                 bytesCount: 4,
+                 matches: { bytes, _ in
+                     return bytes[1...3] == [0xb5, 0x2f, 0xfd]
+                 }),
+        MimeType(mime: "application/zstandard",
+                 ext: "zst",
+                 type: .zst,
+                 bytesCount: 4,
+                 matches: { bytes, _ in
+                     return bytes[0...3] == [0x37, 0xa4, 0x30, 0xec]
+                 }),
         MimeType(
             mime: "audio/aac",
             ext: "aac",
