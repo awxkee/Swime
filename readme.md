@@ -30,8 +30,7 @@ import Swime
 
 let path = "/path/to/some-file.jpg"
 let url = URL(fileURLWithPath: path, isDirectory: false)
-let data = try! Data(contentsOf: url)
-let mimeType = Swime.mimeType(data: data)
+let mimeType = try Swime.mimeType(url: url)
 
 mimeType?.type == .jpg // true
 mimeType! // MimeType(mime: "image/jpeg", ext: "jpg", type: .jpg)
@@ -54,6 +53,7 @@ import Swime
 
 let bytes: [UInt8] = [255, 216, 255]
 let mimeType = Swime.mimeType(bytes: bytes)
+let mimeType = try Swime.mimeType(url: URL())
 
 mimeType! // MimeType(mime: "image/jpeg", ext: "jpg", type: .jpg)
 ```
@@ -63,66 +63,74 @@ Here are the list of available `MimeTypeExtension`.
 
 ```swift
 public enum MimeTypeExtension {
-  case amr
-  case ar
-  case avi
-  case bmp
-  case bz2
-  case cab
-  case cr2
-  case crx
-  case deb
-  case dmg
-  case eot
-  case epub
-  case exe
-  case flac
-  case flif
-  case flv
-  case gif
-  case gz
-  case ico
-  case jpg
-  case jxr
-  case lz
-  case m4a
-  case m4v
-  case mid
-  case mkv
-  case mov
-  case mp3
-  case mp4
-  case mpg
-  case msi
-  case mxf
-  case nes
-  case ogg
-  case opus
-  case otf
-  case pdf
-  case png
-  case ps
-  case psd
-  case rar
-  case rpm
-  case rtf
-  case sevenZ // 7z, Swift does not let us define enum that starts with a digit
-  case sqlite
-  case swf
-  case tar
-  case tif
-  case ttf
-  case wav
-  case webm
-  case webp
-  case wmv
-  case woff
-  case woff2
-  case xpi
-  case xz
-  case z
-  case zip
-  case heic
+    case aac
+    case amr
+    case ar
+    case avi
+    case bmp
+    case bz2
+    case cab
+    case cr2
+    case crx
+    case deb
+    case dmg
+    case eot
+    case epub
+    case exe
+    case flac
+    case flif
+    case flv
+    case gif
+    case gz
+    case ico
+    case jpg
+    case djvu
+    case fb2
+    case xml
+    case mobi
+    case jxr
+    case lz
+    case m4a
+    case m4v
+    case mid
+    case mkv
+    case mov
+    case mp3
+    case mp4
+    case mpg
+    case msi
+    case mxf
+    case nes
+    case ogg
+    case opus
+    case otf
+    case pdf
+    case png
+    case ps
+    case psd
+    case rar
+    case rpm
+    case rtf
+    case sevenZ // 7z, Swift does not let us define enum that starts with a digit
+    case sqlite
+    case swf
+    case tar
+    case tif
+    case ttf
+    case wav
+    case webm
+    case webp
+    case wmv
+    case woff
+    case woff2
+    case xpi
+    case xz
+    case z
+    case zip
+    case applicationHeic
+    case heic
+    case heif
+    case zst
 }
 ```
 
