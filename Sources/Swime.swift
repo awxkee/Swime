@@ -18,6 +18,13 @@ public struct Swime {
         return mimeType(swime: Swime(bytes: bytes))
     }
 
+    ///  A static method to get the `MimeType` that matches the given url
+    ///
+    ///  - returns: Optional<MimeType>
+    static public func mimeType(url: URL) throws -> MimeType? {
+        return mimeType(swime: try Swime(url: url))
+    }
+
     ///  Get the `MimeType` that matches the given `Swime` instance
     ///
     ///  - returns: Optional<MimeType>
