@@ -11,6 +11,7 @@ public enum FileType {
     case amr
     case ar
     case avi
+    case avif
     case bmp
     case bz2
     case cab
@@ -317,6 +318,49 @@ public struct MimeType {
             bytesCount: 2,
             matches: { bytes, _ in
                 return bytes[0...1] == [0x78, 0x01]
+            }
+        ),
+        MimeType(
+            mime: "image/avif",
+            ext: "avif",
+            type: .avif,
+            bytesCount: 12,
+            matches: { bytes, _ in
+                let mt = [UInt8](bytes[4...11])
+                return mt == [UInt8]("ftypavif".utf8)
+            }
+        ),
+        MimeType(
+            mime: "image/avif-sequence",
+            ext: "avif",
+            type: .avif,
+            bytesCount: 12,
+            matches: { bytes, _ in
+                let mt = [UInt8](bytes[4...11])
+                return mt == [UInt8]("ftypavis".utf8)
+            }
+        ),
+        MimeType(
+            mime: "image/heif",
+            ext: "heif",
+            type: .heif,
+            bytesCount: 12,
+            matches: { bytes, _ in
+                let mt = [UInt8](bytes[4...11])
+                return mt == [UInt8]("ftypmif1".utf8) || mt == [UInt8]("ftypmsf1".utf8)
+            }
+        ),
+        MimeType(
+            mime: "image/heic",
+            ext: "heic",
+            type: .heic,
+            bytesCount: 12,
+            matches: { bytes, _ in
+                let mt = [UInt8](bytes[4...11])
+                return mt == [UInt8]("ftypheic".utf8) || mt == [UInt8]("ftypheix".utf8)
+                || mt == [UInt8]("ftyphevc".utf8) || mt == [UInt8]("ftyphevx".utf8)
+                || mt == [UInt8]("ftyphevs".utf8) || mt == [UInt8]("ftypheis".utf8)
+                || mt == [UInt8]("ftypheim".utf8)
             }
         ),
         MimeType(
@@ -803,27 +847,6 @@ public struct MimeType {
             bytesCount: 14,
             matches: { bytes, _ in
                 return bytes[0...13] == [0x06, 0x0E, 0x2B, 0x34, 0x02, 0x05, 0x01, 0x01, 0x0D, 0x01, 0x02, 0x01, 0x01, 0x02 ]
-            }
-        ),
-        MimeType(
-            mime: "image/heif",
-            ext: "heif",
-            type: .heif,
-            bytesCount: 12,
-            matches: { bytes, _ in
-                let mt = [UInt8](bytes[8...11])
-                return mt == [UInt8]("mif1".utf8) || mt == [UInt8]("msf1".utf8)
-            }
-        ),
-        MimeType(
-            mime: "image/heic",
-            ext: "heic",
-            type: .heic,
-            bytesCount: 12,
-            matches: { bytes, _ in
-                let mt = [UInt8](bytes[8...11])
-                return mt == [UInt8]("heic".utf8) || mt == [UInt8]("heix".utf8)
-                || mt == [UInt8]("hevc".utf8) || mt == [UInt8]("hevx".utf8)
             }
         ),
         MimeType(
