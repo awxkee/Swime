@@ -46,16 +46,19 @@ public struct Swime {
         }
         srcStream.open()
         defer { srcStream.close() }
+        guard srcStream.hasBytesAvailable else {
+            throw SwimeInvalidURLError(url: url)
+        }
         let maxBytes = 1256
         guard let buffer = malloc(maxBytes) else {
             throw SwimeInvalidURLError(url: url)
         }
         defer { free(buffer) }
-        let readBytes = srcStream.read(buffer, maxLength: maxBytes)
+        let readBytes = srcStream.read(buffer, maxLength: maxBytes - 1)
         if readBytes < 0 {
             throw SwimeInvalidURLError(url: url)
         }
-        let data = Data(bytes: buffer, count: readBytes)
+        let data = Data(bytes: buffer, count: min(readBytes, 1255))
         self.data = data
     }
 
