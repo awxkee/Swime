@@ -76,6 +76,7 @@ public enum FileType {
     case heic
     case heif
     case zst
+    case svg
 }
 
 public struct MimeType {
@@ -109,6 +110,13 @@ public struct MimeType {
 
     /// List of all supported `MimeType`s
     public static let all: [MimeType] = [
+        MimeType(mime: "image/svg+xml", ext: "svg", type: .svg, bytesCount: 100, matches: { bytes, _ in
+            if let string = String(bytes: bytes, encoding: .utf8) {
+                return string.contains("<svg") || string.contains("http://www.w3.org/2000/svg")
+            } else {
+                return false
+            }
+        }),
         MimeType(mime: "application/zstd",
                  ext: "zst",
                  type: .zst,
