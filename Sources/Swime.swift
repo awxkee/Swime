@@ -3,6 +3,7 @@ import Foundation
 public struct Swime {
     /// File data
     let data: Data
+    internal var zipHeader: ZIPHeader?
 
     ///  A static method to get the `MimeType` that matches the given file data
     ///
@@ -60,14 +61,17 @@ public struct Swime {
         }
         let data = Data(bytes: buffer, count: min(readBytes, 1255))
         self.data = data
+        self.zipHeader = ZIPHeaderParser().parseZIPHeader(data: data)
     }
 
     public init(data: Data) {
         self.data = data
+        self.zipHeader = ZIPHeaderParser().parseZIPHeader(data: data)
     }
 
     public init(bytes: [UInt8]) {
         self.init(data: Data(bytes))
+        self.zipHeader = ZIPHeaderParser().parseZIPHeader(data: data)
     }
 
     ///  Read bytes from file data
