@@ -66,12 +66,14 @@ public enum FileType {
     case ar
     case avi
     case avif
+    case azw3
     case bmp
     case bz2
     case cab
     case cr2
     case crx
     case deb
+    case docx
     case dmg
     case eot
     case epub
@@ -106,6 +108,7 @@ public enum FileType {
     case otf
     case pdf
     case png
+    case pptx
     case ps
     case psd
     case rar
@@ -132,7 +135,9 @@ public enum FileType {
     case heif
     case zst
     case svg
+    case xlsx
 }
+
 ```
 
 ## Testing
