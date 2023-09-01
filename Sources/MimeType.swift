@@ -12,6 +12,7 @@ public enum FileType {
     case ar
     case avi
     case avif
+    case azw3
     case bmp
     case bz2
     case cab
@@ -29,6 +30,7 @@ public enum FileType {
     case gz
     case ico
     case jpg
+    case jxl
     case djvu
     case fb2
     case xml
@@ -230,6 +232,16 @@ public struct MimeType {
             bytesCount: 4,
             matches: { bytes, _ in
                 return bytes[0...3] == [0x38, 0x42, 0x50, 0x53]
+            }
+        ),
+        MimeType(
+            mime: "image/jxl",
+            ext: "jxl",
+            type: .jxl,
+            bytesCount: 12,
+            matches: { bytes, _ in
+                let magic2: [UInt8] = [0x00, 0x00, 0x00, 0x0C, 0x4A, 0x58, 0x4C, 0x20, 0x0D, 0x0A, 0x87, 0x0A]
+                return bytes[0...1] == [0xFF, 0x0A] || Array(bytes[0..<magic2.count]) == magic2
             }
         ),
         MimeType(
@@ -866,5 +878,33 @@ public struct MimeType {
                 return bytes[8...11] == [0x68, 0x65, 0x69, 0x63] || bytes[8...11] == [0x68, 0x65, 0x69, 0x78]
             }
         ),
+        MimeType(
+            mime: "application/x-mobipocket-ebook",
+            ext: "azw3",
+            type: .azw3,
+            bytesCount: 16,
+            matches: { bytes, _ in
+                let data = Data(bytes[0...14])
+                let azw3MagicBytes: [UInt8] = [0x52, 0x49, 0x46, 0x46]
+                let azw3MagicString = "EBOOK"
+
+                // Ensure the data is at least as long as the magic bytes
+                guard data.count >= azw3MagicBytes.count + azw3MagicString.utf8.count else {
+                    return false
+                }
+
+                // Compare the first 4 bytes of the data with the AZW3 magic bytes
+                let dataHeader = data.prefix(azw3MagicBytes.count)
+                if dataHeader.elementsEqual(azw3MagicBytes) {
+                    // Check if "EBOOK" follows the magic bytes
+                    let magicStringStartIndex = data.index(dataHeader.endIndex, offsetBy: 0)
+                    let magicStringEndIndex = data.index(dataHeader.endIndex, offsetBy: azw3MagicString.utf8.count)
+                    let magicStringData = data[magicStringStartIndex..<magicStringEndIndex]
+                    if let magicString = String(data: magicStringData, encoding: .utf8) {
+                        return magicString == azw3MagicString
+                    }
+                }
+                return false
+            })
     ]
 }

@@ -4,9 +4,7 @@ Swift check MIME type based on magic bytes. Swime detects MIME type of a `Data`,
 [![Build Status](https://travis-ci.org/sendyhalim/Swime.svg?branch=master)](https://travis-ci.org/sendyhalim/Swime)
 
 ## Maintainers wanted
-This project is not under active development, please go to [maintainers ticket](https://github.com/sendyhalim/Swime/issues/24) if you're interested.
-
-[![Maintainers Wanted](https://img.shields.io/badge/maintainers-wanted-red.svg)](https://github.com/pickhardt/maintainers-wanted)
+This package small extension of original and have improvements with additional formats
 
 ## Installation
 ### Swift Package Manager
@@ -62,11 +60,12 @@ mimeType! // MimeType(mime: "image/jpeg", ext: "jpg", type: .jpg)
 Here are the list of available `MimeTypeExtension`.
 
 ```swift
-public enum MimeTypeExtension {
+public enum FileType {
     case aac
     case amr
     case ar
     case avi
+    case avif
     case bmp
     case bz2
     case cab
@@ -84,6 +83,7 @@ public enum MimeTypeExtension {
     case gz
     case ico
     case jpg
+    case jxl
     case djvu
     case fb2
     case xml
@@ -131,6 +131,7 @@ public enum MimeTypeExtension {
     case heic
     case heif
     case zst
+    case svg
 }
 ```
 
