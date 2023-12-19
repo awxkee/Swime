@@ -503,7 +503,7 @@ public struct MimeType {
             mime: "application/x-mobipocket-ebook",
             ext: "mobi",
             type: .mobi,
-            bytesCount: 60 + 8,
+            bytesCount: 60 + 9,
             matches: { bytes, _ in
                 bytes[60...68] == [0x42, 0x4F, 0x4F, 0x4B, 0x4D, 0x4F, 0x42, 0x49]
             }
