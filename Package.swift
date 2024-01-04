@@ -11,8 +11,7 @@ let package = Package(
     .library(name: "Swime", targets: ["Swime"])
   ],
   dependencies: [
-    .package(url: "https://github.com/Quick/Quick", from: "1.3.4"),
-    .package(url: "https://github.com/Quick/Nimble", from: "7.3.3")
+
   ],
   targets: [
     .target(
@@ -23,8 +22,6 @@ let package = Package(
       name: "SwimeTests",
       dependencies: [
         "Swime",
-        "Quick",
-        "Nimble"
       ]
     )
   ]
